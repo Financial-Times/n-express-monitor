@@ -1,0 +1,19 @@
+# dependencies
+/node_modules/
+
+# test output
+coverage/
+reports/
+
+# dist
+lib/
+dist/
+
+# dot files
+.DS_Store
+.cache
+*.env*
+package-lock.json
+
+# log files
+*.log

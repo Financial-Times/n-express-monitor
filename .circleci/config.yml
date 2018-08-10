@@ -1,0 +1,73 @@
+---
+version: 2
+references:
+  override-env-path: &override-env-path
+    environment:
+      # override $PATH if it has been set in Circleci for 1.0
+      - PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  run-test-on: &run-test-on
+    <<: *override-env-path
+    steps:
+      - checkout
+      - run: make install test
+  triggerable-by-tag: &triggerable-by-tag
+    # For a tag push unaffected by any filters, CircleCI skips the job
+    # https://circleci.com/docs/2.0/workflows/#git-tag-job-execution
+    filters:
+      tags:
+        only: /.*/
+
+jobs:
+  # jobs.build is here just as a temporary fix to mute scheduled build and update test coverage
+  build:
+    docker:
+      - image: circleci/node:boron
+    <<: *override-env-path
+    steps:
+      - checkout
+      - run: make install test-cover
+      - run: cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+  test-on-boron:
+    <<: *run-test-on
+    docker:
+      - image: circleci/node:boron
+  test-on-carbon:
+    <<: *run-test-on
+    docker:
+      - image: circleci/node:carbon
+  test-on-latest:
+    <<: *run-test-on
+    docker:
+      - image: circleci/node:latest
+  release:
+    docker:
+      - image: circleci/node:boron
+    environment:
+      - PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    steps:
+      - checkout
+      - run: make install build
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ${HOME}/.npmrc
+      - run: npm version --no-git-tag-version ${CIRCLE_TAG}
+      - run: npm publish --access public
+
+workflows:
+  version: 2
+  test-and-release:
+    jobs:
+      - test-on-boron:
+          *triggerable-by-tag
+      - test-on-carbon:
+          *triggerable-by-tag
+      - test-on-latest:
+          *triggerable-by-tag
+      - release:
+          requires:
+            - test-on-boron
+            - test-on-carbon
+            - test-on-latest
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v?\d+\.\d+\.\d+(?:-beta\.\d+)?$/
