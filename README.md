@@ -13,5 +13,26 @@
 
 <br>
 
+- [Terminology](#terminology)
+  * [operation function](#operation-function)
+  * [action function](#action-function)
+- [Licence](#licence)
+
+<br>
+
+## Terminology
+
+### operation function
+
+Operation Function generally refers to a function with such signature `(meta, req, res) => {}` that can be enhanced by an Enhancer or converted to a Middleware. 
+
+It has a similar signature to express middleware, while `next` is not needed, as it would be taken care of by `toMiddleware` convertor and `meta` is added to allow pass metadata conviniently to functions inside the scope, without mutating `req`, `res` and make the signature distinctive.
+
+Based on the error handling behaviour, there're two types of Operation Function as below.
+
+### action function
+
+Operation Function generally refers to a function with such signature `(params, meta) => {}` that is friendly for logger, validator, etc. 
+
 ## Licence
 [MIT](/LICENSE)
