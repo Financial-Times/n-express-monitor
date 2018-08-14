@@ -92,7 +92,7 @@ import { monitorModule } from '@financial-times/n-express-monitor';
 
 export default monitorModule({
 	validateUserId: () => {},
- mapUserProfileToView: () => {},
+	mapUserProfileToView: () => {},
 });
 ```
 
