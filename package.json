@@ -15,7 +15,7 @@
     "prepush": "make lint unit-test && make verify -j3"
   },
   "dependencies": {
-    "@financial-times/n-auto-logger": "^4.0.0-beta.3",
+    "@financial-times/n-auto-logger": "^4.0.0-beta.5",
     "@financial-times/n-auto-metrics": "^4.0.0-beta"
   },
   "devDependencies": {

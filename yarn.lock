@@ -92,9 +92,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@financial-times/n-auto-logger@^4.0.0-beta.3":
-  version "4.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@financial-times/n-auto-logger/-/n-auto-logger-4.0.0-beta.3.tgz#2d5e22e7d76617e156be6659c88768ee92d84060"
+"@financial-times/n-auto-logger@^4.0.0-beta.5":
+  version "4.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@financial-times/n-auto-logger/-/n-auto-logger-4.0.0-beta.5.tgz#19708852b3fb29b1443d54fa2c313169a91eb33b"
   dependencies:
     "@financial-times/n-error" "^1.0.6"
     "@financial-times/n-express-enhancer" "^1.8.1"
