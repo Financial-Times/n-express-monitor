@@ -33,7 +33,7 @@ npm install @financial-times/n-express-monitor --save
 ```
 
 ## Demo
-[next-monitor-express(https://github.com/Financial-Times/next-monitor-express)
+[next-monitor-express](https://github.com/Financial-Times/next-monitor-express)
 
 ## Usage
 
