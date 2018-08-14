@@ -19,7 +19,7 @@
   * [setupMonitor](#setupmonitor)
   * [monitor](#monitor)
   * [monitorService](#monitorservice)
-  * [monitor module](#monitor-module)
+  * [monitorModule](#monitormodule)
 - [Convention](#convention)
   * [operation function](#operation-function)
   * [action function](#action-function)
@@ -86,7 +86,7 @@ export default monitorService('user-profile-svc', {
 });
 ```
 
-### monitor module
+### monitorModule
 ```js
 import { monitorModule } from '@financial-times/n-express-monitor';
 
