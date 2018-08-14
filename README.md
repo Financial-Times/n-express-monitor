@@ -13,7 +13,14 @@
 
 <br>
 
-- [Terminology](#terminology)
+- [Install](#install)
+- [Demo](#demo)
+- [Usage](#usage)
+  * [setupMonitor](#setupmonitor)
+  * [monitor](#monitor)
+  * [monitorService](#monitorservice)
+  * [monitor module](#monitor-module)
+- [Convention](#convention)
   * [operation function](#operation-function)
   * [action function](#action-function)
 - [Licence](#licence)
@@ -24,6 +31,9 @@
 ```shell
 npm install @financial-times/n-express-monitor --save
 ```
+
+## Demo
+[next-monitor-express(https://github.com/Financial-Times/next-monitor-express)
 
 ## Usage
 
@@ -86,7 +96,7 @@ export default monitorModule({
 });
 ```
 
-## convention
+## Convention
 
 ### operation function
 
