@@ -1,9 +1,9 @@
-import { logOperation, errorToHandler } from '@financial-times/n-auto-logger';
+import { logOperation, autoNext } from '@financial-times/n-auto-logger';
 import { metricsOperation, compose } from '@financial-times/n-auto-metrics';
 
 const monitor = controllerOrBundle =>
 	compose(
-		errorToHandler,
+		autoNext,
 		metricsOperation,
 		logOperation,
 	)(controllerOrBundle);
