@@ -20,19 +20,81 @@
 
 <br>
 
-## Terminology
+## Install
+```shell
+npm install @financial-times/n-express-monitor --save
+```
+
+## Usage
+
+### setupMonitor
+```js
+import express, { metrics } from '@financial-times/n-express';
+import { setupMonitor } from '@financial-times/n-express-monitor';
+
+const app = express();
+
+setupMonitor({ app, metrics });
+
+// ...middlewares and routes
+```
+
+### monitor
+```js
+import { monitor } from '@financial-times/n-express-monitor';
+
+const getUserProfileBySession = async (req, res) => {
+	const { meta } = req;
+	const { sessionId } = req.params;
+	if (sessionId === 'uncovered') {
+		throw Error('an uncovered function has thrown an error');
+	}
+	const { userId } = await SessionApi.verifySession({ sessionId }, meta);
+	const userProfile = await UserProfileSvc.getUserProfileById({ userId }, meta);
+	res.json(userProfile);
+};
+
+export default monitor(getUserProfileBySession);
+```
+
+### monitorService
+```js
+import { monitorService } from '@financial-times/n-express-monitor';
+
+/*
+	SHORTHAND DEFAULT: in case we don't need to add extra error handling,
+	the default method from n-api-factory can be used to setup a client method
+ */
+const getUserProfileById = async ({ userId }, meta) =>
+	userProfileSvc.get({
+		endpoint: `/user-profile/${userId}`,
+		meta,
+	});
+
+export default monitorService('user-profile-svc', {
+	getUserProfileById,
+});
+```
+
+### monitor module
+```js
+import { monitorModule } from '@financial-times/n-express-monitor';
+
+export default monitorModule({
+	validateUserId: () => {},
+ mapUserProfileToView: () => {},
+});
+```
+
+## convention
 
 ### operation function
 
-Operation Function generally refers to a function with such signature `(meta, req, res) => {}` that can be enhanced by an Enhancer or converted to a Middleware. 
-
-It has a similar signature to express middleware, while `next` is not needed, as it would be taken care of by `toMiddleware` convertor and `meta` is added to allow pass metadata conviniently to functions inside the scope, without mutating `req`, `res` and make the signature distinctive.
-
-Based on the error handling behaviour, there're two types of Operation Function as below.
+same as express middleware/controller but without next: `(req, res) => {}`
 
 ### action function
 
-Operation Function generally refers to a function with such signature `(params, meta) => {}` that is friendly for logger, validator, etc. 
+`(param, meta) => {}`
 
 ## Licence
 [MIT](/LICENSE)
