@@ -1,5 +1,7 @@
 # n-express-monitor
 
+a configurable express decorator to standardise error logging, metrics to make debugging and alerting a better experience
+
 [![npm version](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor.svg)](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor)
 ![npm download](https://img.shields.io/npm/dm/@financial-times/n-express-monitor.svg)
 ![node version](https://img.shields.io/node/v/@financial-times/n-express-monitor.svg)
