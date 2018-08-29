@@ -15,22 +15,22 @@
     "prepush": "make lint unit-test && make verify -j3"
   },
   "dependencies": {
-    "@financial-times/n-auto-logger": "^4.0.0-beta.5",
-    "@financial-times/n-auto-metrics": "^4.0.0-beta"
+    "@financial-times/n-auto-logger": "^4.1.2",
+    "@financial-times/n-auto-metrics": "^4.0.0-beta.2"
   },
   "devDependencies": {
     "@financial-times/n-gage": "^2.0.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^9.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.3.0",
+    "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.21.0",
+    "eslint-plugin-jest": "^21.22.0",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-prettier": "^2.6.2",
     "express": "^4.16.3",
