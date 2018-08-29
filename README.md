@@ -51,6 +51,8 @@ setupMonitor({ app, metrics });
 // ...middlewares and routes
 ```
 
+> use custom logger instance, check [example](https://github.com/Financial-Times/next-monitor-express/blob/use-custom-logger/server/app.js) of setupMonitor with [n-mask-logger](https://github.com/Financial-Times/n-mask-logger)
+
 ### monitor
 ```js
 import { monitor } from '@financial-times/n-express-monitor';
