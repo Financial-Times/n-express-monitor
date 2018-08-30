@@ -1,73 +1,167 @@
----
-version: 2
+# generator: n-circle2-cli
+# template: component
+
 references:
-  override-env-path: &override-env-path
-    environment:
-      # override $PATH if it has been set in Circleci for 1.0
-      - PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-  run-test-on: &run-test-on
-    <<: *override-env-path
-    steps:
-      - checkout
-      - run: make install test
-  triggerable-by-tag: &triggerable-by-tag
-    # For a tag push unaffected by any filters, CircleCI skips the job
-    # https://circleci.com/docs/2.0/workflows/#git-tag-job-execution
-    filters:
-      tags:
-        only: /.*/
+
+  container_config_node8: &container_config_node8
+    working_directory: ~/project/build
+    docker:
+      - image: circleci/node:8-browsers
+
+  container_config_lambda_node8: &container_config_lambda_node8
+    working_directory: ~/project/build
+    docker:
+      - image: lambci/lambda:build-nodejs8.10
+
+  workspace_root: &workspace_root
+    ~/project
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  npm_cache_keys: &npm_cache_keys
+    keys:
+        - v1-dependency-npm-{{ checksum "package.json" }}-
+        - v1-dependency-npm-{{ checksum "package.json" }}
+        - v1-dependency-npm-
+
+  cache_npm_cache: &cache_npm_cache
+    save_cache:
+        key: v1-dependency-npm-{{ checksum "package.json" }}-{{ epoch }}
+        paths:
+        - ./node_modules/
+
+  restore_npm_cache: &restore_npm_cache
+    restore_cache:
+        <<: *npm_cache_keys
+
+  filters_only_master: &filters_only_master
+    branches:
+      only: master
+
+  filters_ignore_master: &filters_ignore_master
+    branches:
+      ignore: master
+
+  filters_ignore_tags: &filters_ignore_tags
+    tags:
+      ignore: /.*/
+
+  filters_version_tag: &filters_version_tag
+    tags:
+      only:
+        - /^v?\d+\.\d+\.\d+(?:-beta\.\d+)?$/
+    branches:
+      ignore: /.*/
+
+version: 2
 
 jobs:
-  # jobs.build is here just as a temporary fix to mute scheduled build and update test coverage
+
   build:
-    docker:
-      - image: circleci/node:boron
-    <<: *override-env-path
+    <<: *container_config_node8
     steps:
       - checkout
-      - run: make install test-cover
-      - run: cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
-  test-on-boron:
-    <<: *run-test-on
-    docker:
-      - image: circleci/node:boron
-  test-on-carbon:
-    <<: *run-test-on
-    docker:
-      - image: circleci/node:carbon
-  test-on-latest:
-    <<: *run-test-on
-    docker:
-      - image: circleci/node:latest
-  release:
-    docker:
-      - image: circleci/node:boron
-    environment:
-      - PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - run:
+          name: Checkout next-ci-shared-helpers
+          command: git clone --depth 1 git@github.com:Financial-Times/next-ci-shared-helpers.git .circleci/shared-helpers
+      - *restore_npm_cache
+      - run:
+          name: Install project dependencies
+          command: make install
+      - run:
+          name: shared-helper / npm-update
+          command: .circleci/shared-helpers/helper-npm-update
+      - run:
+          name: shared-helper / npm-install-peer-deps
+          command: .circleci/shared-helpers/helper-npm-install-peer-deps
+      - run:
+          name: Run the project build task
+          command: make build
+      - run:
+          name: shared-helper / generate-build-state-artifacts
+          command: .circleci/shared-helpers/helper-generate-build-state-artifacts
+          when: always
+      - *cache_npm_cache
+      - store_artifacts:
+          path: build-state
+          destination: build-state
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - build
+
+  test:
+    <<: *container_config_node8
     steps:
-      - checkout
-      - run: make install build
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ${HOME}/.npmrc
-      - run: npm version --no-git-tag-version ${CIRCLE_TAG}
-      - run: npm publish --access public
+      - *attach_workspace
+      - run:
+          name: Run tests
+          command: make test
+          environment:
+            JEST_JUNIT_OUTPUT: test-results/jest/results.xml
+            MOCHA_FILE: test-results/mocha/results.xml
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: test-results
+
+  publish:
+    <<: *container_config_node8
+    steps:
+      - *attach_workspace
+      - run:
+          name: shared-helper / npm-store-auth-token
+          command: .circleci/shared-helpers/helper-npm-store-auth-token
+      - run:
+          name: shared-helper / npm-version-and-publish-public
+          command: .circleci/shared-helpers/helper-npm-version-and-publish-public
 
 workflows:
+
   version: 2
-  test-and-release:
+
+  build-test:
     jobs:
-      - test-on-boron:
-          *triggerable-by-tag
-      - test-on-carbon:
-          *triggerable-by-tag
-      - test-on-latest:
-          *triggerable-by-tag
-      - release:
-          requires:
-            - test-on-boron
-            - test-on-carbon
-            - test-on-latest
+      - build:
           filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v?\d+\.\d+\.\d+(?:-beta\.\d+)?$/
+            <<: *filters_ignore_tags
+      - test:
+          requires:
+            - build
+
+  build-test-publish:
+    jobs:
+      - build:
+          filters:
+            <<: *filters_version_tag
+      - test:
+          filters:
+            <<: *filters_version_tag
+          requires:
+            - build
+      - publish:
+          filters:
+            <<: *filters_version_tag
+          requires:
+            - test
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            <<: *filters_only_master
+    jobs:
+      - build:
+          context: next-nightly-build
+      - test:
+          requires:
+            - build
+          context: next-nightly-build
+
+notify:
+  webhooks:
+    - url: https://ft-next-webhooks.herokuapp.com/circleci2-workflow
