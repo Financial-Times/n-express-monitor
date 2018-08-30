@@ -5,12 +5,25 @@ import {
 	enhancedRender,
 } from '@financial-times/n-auto-logger';
 
-const setupMonitor = ({ app, metrics, logger }) => {
-	initAutoMetrics(metrics);
+let config = {};
+
+const setupMonitor = ({ app, metrics, logger, autoNext = true }) => {
+	config = { app, metrics, logger, autoNext };
+
+	if (metrics) {
+		initAutoMetrics(metrics);
+	}
+
 	if (logger) {
 		setupLoggerInstance(logger);
 	}
-	app.use(/^\/(?!_{2}).*$/, [requestIdMiddleware, enhancedRender]);
+
+	app.use(
+		/^\/(?!_{2}).*$/,
+		autoNext ? [requestIdMiddleware, enhancedRender] : [requestIdMiddleware],
+	);
 };
+
+export const getConfig = () => config;
 
 export default setupMonitor;
