@@ -25,6 +25,7 @@ a configurable express decorator to standardise error logging, metrics to make d
 - [Convention](#convention)
   * [operation function](#operation-function)
   * [action function](#action-function)
+- [How It Works](#how-it-works)
 - [Licence](#licence)
 
 <br>
@@ -109,6 +110,10 @@ same as express middleware/controller but without next: `(req, res) => {}`
 ### action function
 
 `(param, meta) => {}`
+
+## How It Works
+
+If you are interested in how it works under the hood, it is using [n-auto-logger](https://github.com/Financial-Times/n-auto-logger), [n-auto-metrics](https://github.com/Financial-Times/n-auto-metrics), and you can build your own customised decorator and add it into the chain with [n-express-enhancer](https://github.com/Financial-Times/n-express-enhancer).
 
 ## Licence
 [MIT](/LICENSE)
