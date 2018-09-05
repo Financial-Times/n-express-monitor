@@ -2,8 +2,6 @@
 
 a configurable express decorator to standardise error logging, metrics to make debugging and alerting a better experience
 
-<div align="center">
-
 [![npm version](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor.svg)](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor)
 ![npm download](https://img.shields.io/npm/dm/@financial-times/n-express-monitor.svg)
 ![node version](https://img.shields.io/node/v/@financial-times/n-express-monitor.svg)
@@ -14,7 +12,6 @@ a configurable express decorator to standardise error logging, metrics to make d
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/?branch=master)
 [![Dependencies](https://david-dm.org/Financial-Times/n-express-monitor.svg)](https://david-dm.org/Financial-Times/n-express-monitor)
 [![devDependencies](https://david-dm.org/Financial-Times/n-express-monitor/dev-status.svg)](https://david-dm.org/Financial-Times/n-express-monitor?type=dev)
-</div>
 
 <br>
 
