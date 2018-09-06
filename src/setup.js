@@ -7,8 +7,8 @@ import {
 
 let config = {};
 
-const setupMonitor = ({ app, metrics, logger, autoNext = true }) => {
-	config = { app, metrics, logger, autoNext };
+const setupMonitor = ({ app, metrics, logger }) => {
+	config = { app, metrics, logger };
 
 	if (metrics) {
 		initAutoMetrics(metrics);
@@ -18,10 +18,7 @@ const setupMonitor = ({ app, metrics, logger, autoNext = true }) => {
 		setupLoggerInstance(logger);
 	}
 
-	app.use(
-		/^\/(?!_{2}).*$/,
-		autoNext ? [requestIdMiddleware, enhancedRender] : [requestIdMiddleware],
-	);
+	app.use(/^\/(?!_{2}).*$/, [requestIdMiddleware, enhancedRender]);
 };
 
 export const getConfig = () => config;

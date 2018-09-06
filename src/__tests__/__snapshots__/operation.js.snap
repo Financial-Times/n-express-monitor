@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`monitor disable metricsOperation if metrics instance is not set 1`] = `Array []`;
+
+exports[`monitor enable metricsOperation if metrics instance is set 1`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;

@@ -1,16 +1,19 @@
 import {
 	logOperation,
-	autoNext as callNext,
+	autoNext,
+	compose,
 } from '@financial-times/n-auto-logger';
-import { metricsOperation, compose } from '@financial-times/n-auto-metrics';
+import { metricsOperation } from '@financial-times/n-auto-metrics';
 
 import { getConfig } from './setup';
 
+const noDecoration = inputFunction => inputFunction;
+
 const monitor = controllerOrBundle => {
-	const { metrics, autoNext } = getConfig();
+	const { metrics } = getConfig();
 	return compose(
-		autoNext ? callNext : i => i,
-		metrics ? metricsOperation : i => i,
+		autoNext,
+		metrics ? metricsOperation : noDecoration,
 		logOperation,
 	)(controllerOrBundle);
 };
