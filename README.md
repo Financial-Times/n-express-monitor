@@ -1,6 +1,6 @@
 # n-express-monitor
 
-a configurable express decorator to standardise error logging, metrics to make debugging and alerting a better experience
+a configurable [express](https://github.com/expressjs/express) decorator to automate log, metrics to enhance debug and monitor experience
 
 [![npm version](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor.svg)](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor)
 ![npm download](https://img.shields.io/npm/dm/@financial-times/n-express-monitor.svg)
@@ -47,12 +47,12 @@ import { setupMonitor } from '@financial-times/n-express-monitor';
 
 const app = express();
 
-setupMonitor({ app, metrics });
+setupMonitor({ app, metrics }); // if metrics is not set, it would only do the log
 
 // ...middlewares and routes
 ```
 
-> use custom logger instance, check [example](https://github.com/Financial-Times/next-monitor-express/blob/use-custom-logger/server/app.js) of setupMonitor with [n-mask-logger](https://github.com/Financial-Times/n-mask-logger)
+> it uses [n-logger](https://github.com/Financial-Times/n-logger) by default, use custom logger instance, check [example](https://github.com/Financial-Times/next-monitor-express/blob/use-custom-logger/server/app.js) of setupMonitor with [n-mask-logger](https://github.com/Financial-Times/n-mask-logger)
 
 ### monitor
 ```js
