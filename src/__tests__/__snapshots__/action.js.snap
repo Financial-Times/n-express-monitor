@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`monitorModule disable metricsAction if metrics instance is not set 1`] = `Array []`;
+
+exports[`monitorModule enable metricsAction if metrics instance is set 1`] = `
+Array [
+  Array [
+    Object {
+      "method": [Function],
+    },
+  ],
+]
+`;
+
+exports[`monitorService disable metricsAction if metrics instance is not set 1`] = `Array []`;
+
+exports[`monitorService enable metricsAction if metrics instance is set 1`] = `
+Array [
+  Array [
+    Object {
+      "method": [Function],
+    },
+  ],
+]
+`;
