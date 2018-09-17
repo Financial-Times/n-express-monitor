@@ -1,6 +1,6 @@
 # n-express-monitor
 
-a configurable [express](https://github.com/expressjs/express) decorator to automate log, metrics to enhance debug and monitor experience
+a configurable [express](https://github.com/expressjs/express) decorator to automate log, metrics to ensure monitor consistency and make debugging more predictable across micro-services
 
 [![npm version](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor.svg)](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor)
 ![npm download](https://img.shields.io/npm/dm/@financial-times/n-express-monitor.svg)
