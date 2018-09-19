@@ -23,6 +23,7 @@ a configurable [express](https://github.com/expressjs/express) decorator to auto
   * [monitor](#monitor)
   * [monitorService](#monitorservice)
   * [monitorModule](#monitormodule)
+- [Configuration](#configuration)
 - [Convention](#convention)
   * [operation function](#operation-function)
   * [action function](#action-function)
@@ -101,6 +102,15 @@ export default monitorModule({
 	mapUserProfileToView: () => {},
 });
 ```
+
+## Configuration
+
+Apart from the configuration you need for the logger, metrics instance you used, you can config `n-express-monitor` with the following ENV_VAR for the log automation behaviour:
+
+| ENV_VAR | values | function |
+|---------|--------|----------|
+| AUTO_LOG_LEVEL | `verbose`, `standard`(default), `concise`, `error` | control how operation and action would be logged, check [example](https://github.com/Financial-Times/next-monitor-express) |
+| LOGGER_MUTE_FIELDS | key names of values in the `meta` or error | use to reduce amount of log information |
 
 ## Convention
 
