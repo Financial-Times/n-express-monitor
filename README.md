@@ -3,12 +3,11 @@
 a configurable [express](https://github.com/expressjs/express) decorator to automate log, metrics to ensure monitor consistency and make debugging more predictable across micro-services
 
 [![npm version](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor.svg)](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor)
-![npm download](https://img.shields.io/npm/dm/@financial-times/n-express-monitor.svg)
-![node version](https://img.shields.io/node/v/@financial-times/n-express-monitor.svg)
-[![gitter chat](https://badges.gitter.im/Financial-Times/n-express-monitor.svg)](https://gitter.im/Financial-Times/n-express-monitor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![CircleCI](https://circleci.com/gh/Financial-Times/n-express-monitor.svg?style=shield)](https://circleci.com/gh/Financial-Times/n-express-monitor)
 [![Coverage Status](https://coveralls.io/repos/github/Financial-Times/n-express-monitor/badge.svg?branch=master)](https://coveralls.io/github/Financial-Times/n-express-monitor?branch=master)
+[![gitter chat](https://badges.gitter.im/Financial-Times/n-express-monitor.svg)](https://gitter.im/Financial-Times/n-express-monitor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+![node version](https://img.shields.io/node/v/@financial-times/n-express-monitor.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/Financial-Times/n-express-monitor/badge.svg)](https://snyk.io/test/github/Financial-Times/n-express-monitor)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/?branch=master)
 [![Dependencies](https://david-dm.org/Financial-Times/n-express-monitor.svg)](https://david-dm.org/Financial-Times/n-express-monitor)
