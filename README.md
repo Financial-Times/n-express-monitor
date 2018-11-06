@@ -6,6 +6,7 @@ a configurable [express](https://github.com/expressjs/express) decorator to auto
 [![CircleCI](https://circleci.com/gh/Financial-Times/n-express-monitor.svg?style=shield)](https://circleci.com/gh/Financial-Times/n-express-monitor)
 [![Coverage Status](https://coveralls.io/repos/github/Financial-Times/n-express-monitor/badge.svg?branch=master)](https://coveralls.io/github/Financial-Times/n-express-monitor?branch=master)
 [![gitter chat](https://badges.gitter.im/Financial-Times/n-express-monitor.svg)](https://gitter.im/Financial-Times/n-express-monitor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor?ref=badge_shield)
 
 ![node version](https://img.shields.io/node/v/@financial-times/n-express-monitor.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/Financial-Times/n-express-monitor/badge.svg)](https://snyk.io/test/github/Financial-Times/n-express-monitor)
@@ -127,3 +128,6 @@ If you are interested in how it works under the hood, it is using [n-auto-logger
 
 ## Licence
 [MIT](/LICENSE)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor?ref=badge_large)
