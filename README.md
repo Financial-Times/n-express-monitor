@@ -128,6 +128,3 @@ If you are interested in how it works under the hood, it is using [n-auto-logger
 
 ## Licence
 [MIT](/LICENSE)
-
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor?ref=badge_large)
