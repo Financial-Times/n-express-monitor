@@ -3,15 +3,15 @@
 ---
 references:
 
-  container_config_node8: &container_config_node8
+  container_config_node: &container_config_node
     working_directory: ~/project/build
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:12-browsers
 
-  container_config_lambda_node8: &container_config_lambda_node8
+  container_config_lambda_node: &container_config_lambda_node
     working_directory: ~/project/build
     docker:
-      - image: lambci/lambda:build-nodejs8.10
+      - image: lambci/lambda:build-nodejs12.x
 
   workspace_root: &workspace_root
     ~/project
@@ -36,13 +36,13 @@ references:
     restore_cache:
       <<: *npm_cache_keys
 
-  filters_only_master: &filters_only_master
+  filters_only_main: &filters_only_main
     branches:
-      only: master
+      only: main
 
-  filters_ignore_master: &filters_ignore_master
+  filters_ignore_main: &filters_ignore_main
     branches:
-      ignore: master
+      ignore: main
 
   filters_ignore_tags: &filters_ignore_tags
     tags:
@@ -60,7 +60,7 @@ version: 2
 jobs:
 
   build:
-    <<: *container_config_node8
+    <<: *container_config_node
     steps:
       - checkout
       - run:
@@ -93,7 +93,7 @@ jobs:
             - build
 
   test:
-    <<: *container_config_node8
+    <<: *container_config_node
     steps:
       - *attach_workspace
       - run:
@@ -113,7 +113,7 @@ jobs:
           destination: test-results
 
   publish:
-    <<: *container_config_node8
+    <<: *container_config_node
     steps:
       - *attach_workspace
       - run:
@@ -158,7 +158,7 @@ workflows:
       - schedule:
           cron: "0 0 * * *"
           filters:
-            <<: *filters_only_master
+            <<: *filters_only_main
     jobs:
       - build:
           context: next-nightly-build

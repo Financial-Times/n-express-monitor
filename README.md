@@ -4,13 +4,13 @@ a configurable [express](https://github.com/expressjs/express) decorator to auto
 
 [![npm version](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor.svg)](https://badge.fury.io/js/%40financial-times%2Fn-express-monitor)
 [![CircleCI](https://circleci.com/gh/Financial-Times/n-express-monitor.svg?style=shield)](https://circleci.com/gh/Financial-Times/n-express-monitor)
-[![Coverage Status](https://coveralls.io/repos/github/Financial-Times/n-express-monitor/badge.svg?branch=master)](https://coveralls.io/github/Financial-Times/n-express-monitor?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Financial-Times/n-express-monitor/badge.svg?branch=main)](https://coveralls.io/github/Financial-Times/n-express-monitor?branch=main)
 [![gitter chat](https://badges.gitter.im/Financial-Times/n-express-monitor.svg)](https://gitter.im/Financial-Times/n-express-monitor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FFinancial-Times%2Fn-express-monitor?ref=badge_shield)
 
 ![node version](https://img.shields.io/node/v/@financial-times/n-express-monitor.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/Financial-Times/n-express-monitor/badge.svg)](https://snyk.io/test/github/Financial-Times/n-express-monitor)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/Financial-Times/n-express-monitor/?branch=main)
 [![Dependencies](https://david-dm.org/Financial-Times/n-express-monitor.svg)](https://david-dm.org/Financial-Times/n-express-monitor)
 [![devDependencies](https://david-dm.org/Financial-Times/n-express-monitor/dev-status.svg)](https://david-dm.org/Financial-Times/n-express-monitor?type=dev)
 

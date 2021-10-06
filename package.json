@@ -10,9 +10,6 @@
     "test": "jest",
     "cover": "jest --coverage",
     "prepublish": "make build",
-    "precommit": "node_modules/.bin/secret-squirrel",
-    "commitmsg": "node_modules/.bin/secret-squirrel-commitmsg",
-    "prepush": "make lint unit-test && make verify -j3",
     "prepare": "npx snyk protect || npx snyk protect -d || true"
   },
   "dependencies": {
@@ -20,7 +17,7 @@
     "@financial-times/n-auto-metrics": "^4.0.0-beta.2"
   },
   "devDependencies": {
-    "@financial-times/n-gage": "^3.6.0",
+    "@financial-times/n-gage": "^8.2.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.0",
@@ -41,6 +38,13 @@
     "supertest": "^3.3.0"
   },
   "engines": {
-    "node": ">=6.1.0"
+    "node": "12.x"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "node_modules/.bin/secret-squirrel-commitmsg",
+      "pre-commit": "node_modules/.bin/secret-squirrel",
+      "pre-push": "make lint unit-test && make verify -j3"
+    }
   }
 }
