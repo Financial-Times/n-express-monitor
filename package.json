@@ -10,7 +10,8 @@
     "test": "jest",
     "cover": "jest --coverage",
     "prepublish": "make build",
-    "prepare": "npx snyk protect || npx snyk protect -d || true"
+    "prepare": "npx snyk protect || npx snyk protect -d || true",
+    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine"
   },
   "dependencies": {
     "@financial-times/n-auto-logger": "^4.1.2",
@@ -23,6 +24,7 @@
     "babel-eslint": "^10.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "check-engine": "^1.10.1",
     "coveralls": "^3.0.2",
     "eslint": "^5.6.0",
     "eslint-config-airbnb-base": "13.1.0",
@@ -38,7 +40,8 @@
     "supertest": "^3.3.0"
   },
   "engines": {
-    "node": "12.x"
+    "node": "12.x",
+    "npm": "7.x || 8.x"
   },
   "husky": {
     "hooks": {
@@ -46,5 +49,9 @@
       "pre-commit": "node_modules/.bin/secret-squirrel",
       "pre-push": "make lint unit-test && make verify -j3"
     }
+  },
+  "volta": {
+    "node": "12.22.5",
+    "npm": "7.20.2"
   }
 }

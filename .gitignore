@@ -13,7 +13,6 @@ dist/
 .DS_Store
 .cache
 *.env*
-package-lock.json
 
 # log files
 *.log
