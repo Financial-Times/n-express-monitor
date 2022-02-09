@@ -33,7 +33,7 @@
     "eslint-plugin-jest": "^21.22.1",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-prettier": "^2.6.2",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "nodemon": "^1.18.4",
     "prettier": "^1.14.3",
     "snyk": "^1.167.2",
