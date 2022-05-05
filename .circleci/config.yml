@@ -3,52 +3,69 @@
 ---
 references:
 
-  container_config_node: &container_config_node
+  container_config_node:
+    &container_config_node
     working_directory: ~/project/build
     docker:
-      - image: circleci/node:12-browsers
+      - image: circleci/node:<< parameters.node-version >>-browsers
+    parameters:
+      node-version:
+        default: "16.15"
+        type: string
 
-  container_config_lambda_node: &container_config_lambda_node
+  container_config_lambda_node:
+    &container_config_lambda_node
     working_directory: ~/project/build
     docker:
-      - image: lambci/lambda:build-nodejs12.x
+      - image: lambci/lambda:build-nodejs<< parameters.node-version >>
+    parameters:
+      node-version:
+        default: "16.15"
+        type: string
 
-  workspace_root: &workspace_root
-    ~/project
+  workspace_root: &workspace_root ~/project
 
-  attach_workspace: &attach_workspace
+  attach_workspace:
+    &attach_workspace
     attach_workspace:
       at: *workspace_root
 
-  npm_cache_keys: &npm_cache_keys
+  npm_cache_keys:
+    &npm_cache_keys
     keys:
       - v2-dependency-npm-{{ checksum "package.json" }}-
       - v2-dependency-npm-{{ checksum "package.json" }}
       - v2-dependency-npm-
 
-  cache_npm_cache: &cache_npm_cache
+  cache_npm_cache:
+    &cache_npm_cache
     save_cache:
       key: v2-dependency-npm-{{ checksum "package.json" }}-{{ epoch }}
       paths:
         - ./node_modules/
 
-  restore_npm_cache: &restore_npm_cache
+  restore_npm_cache:
+    &restore_npm_cache
     restore_cache:
       <<: *npm_cache_keys
 
-  filters_only_main: &filters_only_main
+  filters_only_main:
+    &filters_only_main
     branches:
       only: main
 
-  filters_ignore_main: &filters_ignore_main
+  filters_ignore_main:
+    &filters_ignore_main
     branches:
       ignore: main
 
-  filters_ignore_tags: &filters_ignore_tags
+  filters_ignore_tags:
+    &filters_ignore_tags
     tags:
       ignore: /.*/
 
-  filters_version_tag: &filters_version_tag
+  filters_version_tag:
+    &filters_version_tag
     tags:
       only:
         - /^v?\d+\.\d+\.\d+(?:-beta\.\d+)?$/
@@ -68,7 +85,9 @@ jobs:
       - checkout
       - run:
           name: Checkout next-ci-shared-helpers
-          command: git clone --depth 1 git@github.com:Financial-Times/next-ci-shared-helpers.git .circleci/shared-helpers
+          command: git clone --depth 1
+            git@github.com:Financial-Times/next-ci-shared-helpers.git
+            .circleci/shared-helpers
       - *restore_npm_cache
       - node/install-npm:
           version: "7"
@@ -118,7 +137,8 @@ jobs:
       - run:
           name: shared-helper / npm-store-auth-token
           command: .circleci/shared-helpers/helper-npm-store-auth-token
-      - run: npx snyk monitor --org=customer-products --project-name=Financial-Times/n-express-monitor
+      - run: npx snyk monitor --org=customer-products
+          --project-name=Financial-Times/n-express-monitor
       - run:
           name: shared-helper / npm-version-and-publish-public
           command: .circleci/shared-helpers/helper-npm-version-and-publish-public
@@ -132,26 +152,42 @@ workflows:
       - build:
           filters:
             <<: *filters_ignore_tags
+          name: build-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ "16.15", "14.19" ]
       - test:
           requires:
-            - build
+            - build-v<< matrix.node-version >>
+          name: test-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ "16.15", "14.19" ]
 
   build-test-publish:
     jobs:
       - build:
           filters:
             <<: *filters_version_tag
+          name: build-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ "16.15", "14.19" ]
       - test:
           filters:
             <<: *filters_version_tag
           requires:
-            - build
+            - build-v<< matrix.node-version >>
+          name: test-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ "16.15", "14.19" ]
       - publish:
           context: npm-publish-token
           filters:
             <<: *filters_version_tag
           requires:
-            - test
+            - test-v16.15
 
   nightly:
     triggers:
@@ -162,10 +198,18 @@ workflows:
     jobs:
       - build:
           context: next-nightly-build
+          name: build-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ "16.15", "14.19" ]
       - test:
           requires:
-            - build
+            - build-v<< matrix.node-version >>
           context: next-nightly-build
+          name: test-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ "16.15", "14.19" ]
 
 notify:
   webhooks:
